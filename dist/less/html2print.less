@@ -1,0 +1,499 @@
+
+
+/* the geometry of the paper */
+@paper-width: 210mm;
+@paper-height: 297mm;
+
+
+/* the size of the crop marks*/
+@crop-size: 0mm;
+
+/* the size of bleed */
+@bleed: 0mm;
+
+// FIXME: make a case for single page layouts
+@margin-inside: 20mm;
+@margin-outside: 10mm;
+@margin-top: 10mm;
+@margin-bottom: 15mm;
+
+// Header & footer variables
+@header-height: 0mm;
+@header-text: "";
+@footer-height: 0mm;
+@footer-text: counter(page-counter);
+
+//@outside-bar-width: 10mm;
+//@inside-bar-width: 10mm;
+
+
+/* EXTRA SPACE AROUND THE PAGE: BLEED + CROP */
+// TODO: find a more appropriate name
+
+@crop: @crop-size + @bleed;
+
+/* GEOMETRY OF THE PAGE */
+@page-width: @paper-width - (@crop*2) - @margin-outside - @margin-inside;
+@page-height: @paper-height - (@crop*2) - @margin-top  - @margin-bottom;
+
+@body-height: @page-height - @header-height - @footer-height;
+@body-width: @page-width;
+
+//@outside-bar-height: @body-height;
+//@inside-bar-height: @body-height;
+
+
+
+/* SIZE OF SPREAD */
+@spread: @page-width * 2;
+
+
+/**
+ * Computation
+ */
+
+
+body.noScroll {
+    overflow: hidden;
+}
+
+/**
+ * DEFINITION OF THE PAPER SHEET
+ */
+@page {
+    size: @paper-width (@paper-height + 1); 
+    margin: 0;
+}
+
+
+/**
+ * CANVAS
+ */
+
+@media all {
+    body {
+        margin: 0;
+    }
+
+    // hide master-pages
+    [id*='master-page'] {
+        display: none;;
+    }
+
+
+    .paper {
+        width: @paper-width; 
+        height: @paper-height;
+        box-sizing: border-box;
+
+        counter-increment: page-counter;
+
+        // To make sure that one paper sheet is not splitted into different pages in the PDF
+        page-break-inside: avoid;
+        page-break-after: always;
+        overflow: hidden;
+
+        /* Crop marks */
+        padding: @crop;
+        position: relative;
+        .crops {
+            width: @paper-width; 
+            height: @paper-height;
+            position: absolute;
+            top: 0;
+            left: 0;
+
+            div {
+                border-style: solid;
+                border-color: black;
+                border-width: 0;
+                width: @crop;
+                height: @crop;
+                position: absolute;
+                box-sizing: border-box;
+
+                span {
+                    width: @bleed;
+                    height: @bleed;
+                    background-color: white;
+                    position: absolute;
+                }
+            }
+            .crop-top-left {
+                border-right-width: 1px;
+                border-bottom-width: 1px;
+                top: 0;
+                left: 0;
+
+                span { right: -1px; bottom: -1px;}
+            }
+            .crop-top-right {
+                border-left-width: 1px;
+                border-bottom-width: 1px;
+                top: 0;
+                right: 0;
+
+                span { left: -1px; bottom: -1px;}
+            }
+            .crop-bottom-right {
+                border-left-width: 1px;
+                border-top-width: 1px;
+                right: 0;
+                bottom: 0;
+
+                span { left: -1px; top: -1px;}
+            }
+            .crop-bottom-left {
+                border-right-width: 1px;
+                border-top-width: 1px;
+                left: 0;
+                bottom: 0;
+
+                span { right: -1px; top: -1px;}
+            }
+        }
+    }
+    .page {
+        width: @page-width;
+        height: @page-height;
+        position: relative;
+
+        padding-top: @margin-top;
+        padding-bottom: @margin-bottom;
+        padding-left: @margin-inside;
+        padding-right: @margin-outside;
+
+        display: inline-block;
+        overflow: visible;
+
+        .body {
+            height: @body-height;
+            width: @body-width;
+            position: relative;
+        }
+    }
+
+    // TODO: changer le format du papier en spread pour pouvoir imprimer en planche
+    .spread {
+        .paper {
+            float: left;
+        }
+        .paper:nth-child(odd) {
+            margin-left: -@crop;
+        }
+        .paper:nth-child(even) {
+            margin-right: -@crop;
+        }
+        .paper:first-child {
+            margin-left: @page-width;
+        }
+    }
+}
+
+@media print {
+    html {
+        width: @paper-width;
+        height: @paper-height;
+    }
+
+    body {
+        /* Allows printing of background colors */
+        background-color: white;
+        -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+        /* Activate opentype features and kernings */
+        -webkit-font-feature-settings: "liga", "dlig", "clig", "kern";
+        text-rendering: optimizeLegibility;
+    }
+}
+
+
+
+/**
+ * Helpers
+ */
+
+.region-break {
+    /* Apply this class to an element to put it on a new region.
+     * Hint: 
+     * You can also use an empty <div class="page-break"></div> 
+     * if you want to put manual page breaks without attaching it to an HTML element
+     */
+    -webkit-region-break-before: always;
+}
+
+.h2p-break-after{
+    break-after: always;
+}
+
+.h2p-exclude{
+    display: none;
+}
+
+
+.header,
+.content-body,
+.footer {
+    box-sizing: border-box;
+}
+
+
+/* __________________________________ HEADER __________________________________ */
+.header {
+    height: @header-height;
+    text-align: left;
+
+    &:after {
+        content: @header-text;
+    }
+}
+
+/* __________________________________ MAIN SECTION __________________________________ */
+
+#content-source {
+    -webkit-flow-into: contentflow;
+    flow-into: contentflow;
+}
+
+.content-target {
+    -webkit-flow-from: contentflow;
+    flow-from: contentflow;
+}
+
+
+/* __________________________________ FOOTER __________________________________ */
+.footer {
+    height: @footer-height;
+    text-align: center;
+
+    &:after {
+        content: @footer-text;
+    }
+}
+
+/* mirrored pages */
+#pages.mirrored{
+    .paper {
+        &:nth-child(even) .header {
+            text-align: right;
+        }
+
+        &:nth-child(even) .page {
+            padding-left: @margin-outside;
+            padding-right: @margin-inside;
+        }
+    }
+}
+
+
+img {
+    max-width: 100%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    /* Avoids headings to be cut or to be orphans.
+     * But it doesn't seem to work
+     * if the element after has a page-break-inside avoid. It tries its best! */
+    -webkit-region-break-inside: avoid;
+    -webkit-region-break-after: avoid;
+}
+
+/* AN EXAMPLE TO AVOID PAGE BREAK INSIDE,
+ * HERE NO PARAGRAPH WILL BE CUT,
+ * BUT YOU MIGHT WANT TO DEACTIVATE THIS */
+p {
+    /*-webkit-region-break-inside: avoid;*/
+}
+
+
+
+
+/**
+ * DEBUG STYLES
+ */
+
+
+
+.debug{
+
+    .page{
+        outline: 1px solid darkmagenta;
+        .body {
+            outline: 1px solid magenta;
+        }
+    }
+
+    .region-break {
+        border-top: 1px dashed blue;
+        box-sizing: border-box;
+    }
+
+    img {
+        outline: 1px solid blue;
+    }
+
+}
+/**
+ * User Interface
+ */
+@media screen {
+    // C A N V A S
+    html {
+        background-color: #F0F0F0;
+    }
+    #pages {
+        width: @paper-width; 
+        height: @paper-height;
+        margin: auto;
+    }
+    .spread #pages {
+        width: @paper-width * 2; 
+        height: @paper-height * 2;
+        margin: auto;
+    }
+
+    .spread .paper:nth-child(even){
+        border-right: 1px solid black;
+    }
+
+
+    .paper {
+        /* centrer la page à l'écran */
+        background-color: white;
+        margin-top: 1em;
+        margin-bottom: 1em;
+    }
+    .normal .paper {
+        //outline: 1px solid lightgray;
+    }
+    .normal .page {
+        outline: 1px dashed lightsalmon;
+    }
+    .preview .paper {
+        background: none;
+        border: none !important;
+    }
+    .preview .page {
+        outline: 1px solid lightgray;
+        background-color: white;
+    }
+    .preview .crops { visibility: hidden; }
+
+
+
+    // M E N U
+    .button {
+        z-index: 1000;
+        background-color: black;
+        font-family: sans-serif; 
+        text-transform: uppercase;
+        font-size: 9pt !important;
+        letter-spacing: 1pt;
+        color: white;
+        margin: 0;
+        padding: 5pt 7pt;
+        cursor: pointer;
+        border: 0;
+    }
+    .button:hover {
+        background-color: white;
+        color: black;
+        outline: 1pt solid black;
+    }
+    .button-active {
+        background-color: white;
+        color: black;
+        outline: 1pt solid black;
+    }
+    .lo-res {
+        outline: 10px solid red;
+    }
+    #interface {
+        font-family: sans-serif; 
+        text-transform: uppercase;
+        font-size: 10pt !important;
+        line-height: 14pt;
+        letter-spacing: 1pt;
+        position: fixed;
+        bottom: 10pt;
+        right: 10pt;
+    }
+
+    #interface a {
+        text-decoration: none;
+        position: static;
+    }
+
+
+    div.dropdown {
+        display: inline-block;
+        position: relative;
+
+        ul {
+            padding: 0.5em 0;
+            display: none;
+            background-color: black;
+            position: absolute;
+            right: 0;
+            bottom: 2em;
+            height: 200pt;
+            width: 80pt;
+            overflow: auto;
+
+            a {
+                padding: 0 1em;
+                color: white;
+                display: block;
+
+                &:hover {
+                    background-color: white;
+                    color: black;
+                }
+            }
+        }
+        button {
+            width: 80pt;
+        }
+    }
+
+    #toc {
+        display: inline-block;
+    }
+    #toc-pages {
+        padding: 0.5em 0;
+        display: none;
+        background-color: black;
+        position: absolute;
+        right: 0;
+        bottom: 2em;
+        height: 200pt;
+        width: 80pt;
+        overflow: auto;
+    }
+    #toc-pages a {
+        padding: 0 1em;
+        color: white;
+    }
+    #toc-pages a:hover {
+        background-color: white;
+        color: black;
+    }
+    #toc-pages button {
+        width: 80pt;
+    }
+}
+
+
+
+@media print {
+    #interface {
+        display: none;
+    }
+}
+
+

@@ -1,0 +1,84 @@
+{
+  "_args": [
+    [
+      "https://github.com/FremyCompany/css-regions-polyfill.git",
+      "/Users/GaborK/projects/thesis_KABK_2016/govt-theses-16-gabor-kerekes/print/osp.tools.html2print"
+    ]
+  ],
+  "_from": "git+https://github.com/FremyCompany/css-regions-polyfill.git",
+  "_id": "css-regions-polyfill@3.0.0",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/css-regions-polyfill",
+  "_phantomChildren": {},
+  "_requested": {
+    "hosted": {
+      "directUrl": "https://raw.githubusercontent.com/FremyCompany/css-regions-polyfill/master/package.json",
+      "gitUrl": "git://github.com/FremyCompany/css-regions-polyfill.git",
+      "httpsUrl": "git+https://github.com/FremyCompany/css-regions-polyfill.git",
+      "shortcut": "github:FremyCompany/css-regions-polyfill",
+      "ssh": "git@github.com:FremyCompany/css-regions-polyfill.git",
+      "sshUrl": "git+ssh://git@github.com/FremyCompany/css-regions-polyfill.git",
+      "type": "github"
+    },
+    "name": null,
+    "raw": "https://github.com/FremyCompany/css-regions-polyfill.git",
+    "rawSpec": "https://github.com/FremyCompany/css-regions-polyfill.git",
+    "scope": null,
+    "spec": "git+https://github.com/FremyCompany/css-regions-polyfill.git",
+    "type": "hosted"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "git+https://github.com/FremyCompany/css-regions-polyfill.git#a7461d70247d92a884d22553e74d9afae4eeea8d",
+  "_shasum": "efe1d189f3661140b3c726df50dc15dc0c4fa765",
+  "_shrinkwrap": null,
+  "_spec": "https://github.com/FremyCompany/css-regions-polyfill.git",
+  "_where": "/Users/GaborK/projects/thesis_KABK_2016/govt-theses-16-gabor-kerekes/print/osp.tools.html2print",
+  "author": {
+    "email": "francois.remy.dev@outlook.com",
+    "name": "François REMY",
+    "url": "http://fremycompany.com/"
+  },
+  "bugs": {
+    "url": "https://github.com/FremyCompany/css-regions-polyfill/issues"
+  },
+  "dependencies": {},
+  "description": "JavaScript library to add support for CSS Regions in your browser",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-concat": "^0.3.0",
+    "grunt-contrib-concat-sourcemaps": "^0.6.0",
+    "grunt-contrib-jshint": "^0.6.0",
+    "grunt-contrib-nodeunit": "^0.2.0",
+    "grunt-contrib-uglify": "^0.6.0",
+    "grunt-contrib-watch": "^0.4.0"
+  },
+  "engines": {
+    "node": ">= 0.10.0"
+  },
+  "gitHead": "a7461d70247d92a884d22553e74d9afae4eeea8d",
+  "homepage": "https://github.com/FremyCompany/css-regions-polyfill",
+  "keywords": [],
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/FremyCompany/css-polyfills/blob/master/LICENSE-MIT"
+    }
+  ],
+  "main": "src/requirements.js",
+  "name": "css-regions-polyfill",
+  "optionalDependencies": {},
+  "readme": "CSS Regions Polyfill\n======================\n\nThe `css-regions` polyfill is an unprefixed JavaScript implementation of the CSS Regions specification. You can use the polyfill either to patch browsers which do not have a native regions implementation, or in all browsers. \n\nThe advantage of the first method is that you get a faster experience on supported browsers, the disadvantage is that you have to deal with different experimental implementations.\n\n## Using the Polyfill\nYou can install the polyfill simply by adding a script reference to it on your page. \n\n    <script src=\"/cssregions.min.js\"></script>\n\nOnce the polyfill is installed, you can use unprefixed css-regions in any of your `<link>` or `<style>` stylesheets accessible to your domain, even the one generated via dynamic insertion of tags via JavaScript:\n\n    .content-source {\n        flow-into: content-flow contents;\n    }\n    \n    .content-region {\n    \tflow-from: content-flow;\n    \tregion-fragment: break;\n    }\n\nThat's it. You're ready to go.\n\n## Feature set\n\n### Supported features\n\nThe polyfill supports almost all features of the latest css-regions spec. The polyfill has been tested using the W3C test suite to make sure it was actually valid in most corner cases, so that you can rely on it working properly.\n\n\tCSS:\n\t\t\n\t\tflow-into: <flow-nane>\n\t\tflow-into: <flow-name> contents\n\t\t\n\t\tflow-from: <flow-name>\n\t\t\n\t\tregion-fragment: auto\n\t\tregion-fragment: break\n\t\t\n\t\tbreak-before: region\n\t\tbreak-after: region\n\t\t\n\t\tauto-sized regions\n\t\tlive-update on DOM changes\n\t\tstyling of the fragments inherited from source\n\t\tmouse events working properly on the source\n\t\t\n\tJS:\n\t\t\n\t\tElement.regionOverset\n\t\tElement.getComputedRegionStyle(element)\n\t\t\n\t\tdocument.getNamedFlow(name)\n\t\tdocument.getNamedFlows()\t\n\t\t\t\n\t\tNamedFlow.getContent()\t\n\t\tNamedFlow.getRegions()\t\n\t\tNamedFlow.getRegionsByContent()\t\n\t\tNamedFlow.name\n\t\tNamedFlow.overset\n\t\tNamedFlow.firstEmptyRegionIndex\n\t\t\n\t\tNamedFlow.regionfragmentchange event\n\t\tNamedFlow.regionoversetchange event\t\n\n### Unsupported features\n\nSome features are however not supported:\n\n\tCSS:\n\t\t\n\t\tBasic @region support (styling fragments based on current region)\n\t\t\n\tJS:\n\t\t\n\t\tNamedFlow.getRegionFlowRanges()\n\t\t\n### Known issues\nHowever, some caveats apply:\n\n- Because the code is asynchronous, the only way to be sure you can act on a NamedFlow is to listen to its `regionfragmentchange` event. Unlike the browser which computes the layout of the page synchronously, the JavaScript implementation is asynchronous by nature and cannot perform synchronous operations.\n- Another consequence of the code executing asynchronously is that screen flashing is possible in some cases, especially during the page load if correct `display:none` styling is not applied to hide the source content wrapper before the content itself is flown into a region. It's also advised to put `overflow: hidden` on regions when possible even if it shouldn't be strictly required.\n- The `regionoversetchange` event is not guaranteed to fire only when the overset actually changes. Guaranteeing this would requires storing a lot of information and compare them at runtime, and I decided it would not be worth the time.\n- Dynamic elements cannot be put into a flow without harming their functionnality (this incudes forms, and a lot of interactive objects). This implementation is only suitable for static or mostly static content.\n- In the same vein, `hover` and `active` style do not apply to content inside a region. This limitation could possibly be lifted in some cases but I await feedback this is actually useful before proceeding.\n- Because elements are actually cloned in the regions, you may receive those clones as a result of `getElementsByTagName` or `querySelectorAll` queries, as well as methods such a `elementsFromPoint`. The actual ID and class names of the objects are not preserved in the fragments to reduce the risk, but this is by no mean a complete guarantee. A solution is to check the `data-css-regions-fragment-of` attribute and recover the original source by using the `data-css-regions-fragment-source` attribute.\n- Because computing nested `css-counters` manually would be very expensive in cpu horse power, I decided to leave this case as is. Most non-nested `css-counters` should work fine, however.\n\n### Browser support\nThe polyfill has been tested successfully accross a large range of desktop and mobile browsers. Unsupported browsers include IE8, Opera 12.0 (Presto) and Android Browser 3.0.\n\nFor more information, please refer to the documentation at\n\n    ./documentation/GENERAL_OVERVIEW.md\n    \n## Feedback\nPlease report any bug, pull or feature request on this repository, or contact the author by mail via `francois.remy.dev@outlook.com`. If you have comments on the specification itself, please send your mail to `www-style@w3.org` and includes `[css-regions]` in the subject of your mail.",
+  "readmeFilename": "README.md",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/FremyCompany/css-regions-polyfill.git"
+  },
+  "scripts": {
+    "test": "grunt nodeunit"
+  },
+  "title": "CSS Regions Polyfill",
+  "version": "3.0.0"
+}

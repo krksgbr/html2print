@@ -1,0 +1,46 @@
+
+
+
+<!--
+tools
+-->
+
+<div id="h2p-toolbar">
+    <div id="preview-checkbox" class="tool">
+        <label for="preview">preview</label>
+        <input name="preview" value="true" type="checkbox">
+    </div>
+
+    <div id="debug-checkbox" class="tool">
+        <label for="debug">debug</label>
+        <input name="debug" value="true" type="checkbox">
+    </div>
+
+    <div id="spread-checkbox" class="tool">
+        <label for="spread">spread</label>
+        <input name="spread" value="true" type="checkbox">
+    </div>
+
+    <div id="zoom-level" class="tool">
+        <label for="zoom">zoom</label>
+        <input name="zoom" value="100" type="number" min="25" max="1600" step="25">
+        <span class="icon-plus"></span>
+        <span class="icon-minus"></span>
+    </div>
+
+    <div id="page-selector" class="tool">
+        <label for="page">page</label>
+        <input name="page" value="1" type="number" min="1" max="100" step="1">
+        <span id="total-pages"></span>
+    </div>
+    <div class="separator"></div>
+    <button id="print-button tool">print</button>
+</div>
+
+
+
+
+<div id="h2p-loading-spinner">
+    <div class="icon-spin1 animate-spin">
+    </div>
+</div>

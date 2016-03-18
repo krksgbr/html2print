@@ -1,0 +1,252 @@
+html {
+  overflow-x: hidden;
+}
+#h2p-viewport {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  bottom: 25px;
+  left: 0;
+  right: 0;
+}
+#h2p-viewport iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  overflow-x: hidden;
+}
+#h2p-toolbar {
+  background-color: black;
+  position: fixed;
+  height: 25px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  color: white;
+  font-family: Menlo, monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  padding: 3px 0;
+  display: flex;
+  display: -webkit-flex;
+  align-items: center;
+  justify-content: space-between;
+  -webkit-align-items: center;
+  z-index: 999;
+}
+#h2p-toolbar.hidden {
+  display: none;
+}
+#h2p-toolbar .tool {
+  margin-right: 5%;
+}
+#h2p-toolbar input[type='number'] {
+  -moz-appearance: textfield;
+  width: 25px;
+  vertical-align: 0;
+  margin-left: 2px;
+}
+#h2p-toolbar input::-webkit-outer-spin-button,
+#h2p-toolbar input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+#h2p-toolbar label {
+  margin-left: 1.5em;
+  margin-right: 3px;
+}
+#h2p-toolbar input {
+  border: 1px solid white;
+  background-color: white;
+  font-size: 11px;
+  padding: 2px;
+}
+#h2p-toolbar input:hover {
+  cursor: pointer;
+  background-color: yellow;
+}
+#h2p-toolbar button {
+  border: 1px solid white;
+  background-color: white;
+  font-size: 11px;
+  text-transform: uppercase;
+  margin-right: 1em;
+  height: 19px;
+  width: 6%;
+}
+#h2p-toolbar button:hover {
+  cursor: pointer;
+  background-color: yellow;
+}
+#h2p-toolbar .separator {
+  content: " ";
+  flex-grow: 2;
+  -webkit-flex-grow: 2;
+}
+#h2p-toolbar #zoom-level .icon-plus:hover,
+#h2p-toolbar #zoom-level .icon-minus:hover {
+  color: red;
+  cursor: pointer;
+}
+#h2p-toolbar #total-pages {
+  margin-left: 3px;
+}
+#h2p-loading-spinner {
+  position: fixed;
+  display: flex;
+  z-index: 999;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.85);
+  justify-content: center;
+}
+#h2p-loading-spinner .icon-spin1 {
+  font-size: 4em;
+  color: white;
+}
+body.h2p-error {
+  margin: 0;
+  border: 2vw solid red;
+  width: 100vw;
+  height: 100vh;
+  box-sizing: border-box;
+}
+body.h2p-error .h2p-error-message {
+  margin: auto;
+  font-size: 1.2em;
+  padding: 4vw;
+  font-family: monospace;
+}
+body.h2p-error .h2p-error-message div:first-child {
+  padding-bottom: 2vh;
+}
+@font-face {
+  font-family: 'fontello';
+  src: url('../fonts/fontello.eot?88563412');
+  src: url('../fonts/fontello.eot?88563412#iefix') format('embedded-opentype'), url('../fonts/fontello.woff2?88563412') format('woff2'), url('../fonts/fontello.woff?88563412') format('woff'), url('../fonts/fontello.ttf?88563412') format('truetype'), url('../fonts/fontello.svg?88563412#fontello') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+[class^="icon-"]:before,
+[class*=" icon-"]:before {
+  font-family: "fontello";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Font smoothing. That was taken from TWBS */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+}
+.icon-spin1:before {
+  content: '\e800';
+}
+/* '' */
+.icon-minus:before {
+  content: '\e801';
+}
+/* '' */
+.icon-plus:before {
+  content: '\e802';
+}
+/* '' */
+/*
+   Animation example, for spinners
+*/
+.animate-spin {
+  -moz-animation: spin 2s infinite linear;
+  -o-animation: spin 2s infinite linear;
+  -webkit-animation: spin 2s infinite linear;
+  animation: spin 2s infinite linear;
+  display: inline-block;
+}
+@-moz-keyframes spin {
+  0% {
+    -moz-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -moz-transform: rotate(359deg);
+    -o-transform: rotate(359deg);
+    -webkit-transform: rotate(359deg);
+    transform: rotate(359deg);
+  }
+}
+@-webkit-keyframes spin {
+  0% {
+    -moz-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -moz-transform: rotate(359deg);
+    -o-transform: rotate(359deg);
+    -webkit-transform: rotate(359deg);
+    transform: rotate(359deg);
+  }
+}
+@-o-keyframes spin {
+  0% {
+    -moz-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -moz-transform: rotate(359deg);
+    -o-transform: rotate(359deg);
+    -webkit-transform: rotate(359deg);
+    transform: rotate(359deg);
+  }
+}
+@-ms-keyframes spin {
+  0% {
+    -moz-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -moz-transform: rotate(359deg);
+    -o-transform: rotate(359deg);
+    -webkit-transform: rotate(359deg);
+    transform: rotate(359deg);
+  }
+}
+@keyframes spin {
+  0% {
+    -moz-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -moz-transform: rotate(359deg);
+    -o-transform: rotate(359deg);
+    -webkit-transform: rotate(359deg);
+    transform: rotate(359deg);
+  }
+}

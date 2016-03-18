@@ -1,0 +1,28 @@
+
+
+
+
+#h2p-viewport {
+    top: 10vh;
+}
+
+#h2p-toolbar #debug-checkbox{
+
+    display: none;
+
+}
+
+button, input{
+    background-color: yellow;
+}
+
+button:hover, input:hover{
+    border: 1px solid crimson;
+}
+
+#h2p-toolbar{
+    background-color: lightgray;
+    color: black;
+}
+
+

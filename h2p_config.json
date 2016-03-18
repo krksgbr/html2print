@@ -1,0 +1,31 @@
+{
+    "pages": {
+        "count": 100,
+        "paper-width":      "210mm",
+        "paper-height":     "297mm",
+        "crop-size":        "5mm",
+        "bleed":            "3mm",
+        "margin-inside":    "50mm",
+        "margin-outside":   "8mm",
+        "margin-bottom":    "25mm",
+        "margin-top":       "10mm",
+        "header-height":    "10mm",
+        "footer-height":    "10mm",
+        "header-text":      "''",
+        "footer-text":      "''",
+        "mirror":           "true"
+    },
+
+    "styles": {
+        "print":        "your print stylesheet",
+        "ui-override":  "stylesheet to override parts or all of the default ui style"
+    },
+
+    "scripts": [
+            "your",
+            "scripts",
+            "here"
+    ],
+
+    "route": "#print"
+}

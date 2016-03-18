@@ -1,0 +1,98 @@
+
+
+
+
+html{
+    background-color: ghostwhite;
+}
+
+
+
+#wrapper{
+    margin-bottom: 10vh;
+}
+
+h1, h2{
+    width: 70vw;
+    margin: auto;
+    text-align: center;
+}
+
+h1{
+    font-size: 8em;
+    margin-top: 40vh;
+    line-height: 0.8em;
+    margin-bottom: 5vh;
+}
+
+h2{
+    font-size: 3em;
+    margin-bottom: 20vh;
+}
+
+.quote{
+    font-style: italic;
+    font-weight: bold;
+}
+
+
+p{
+    margin: auto;
+    width: 50vw;
+    font-size: 1.6em;
+    padding-bottom: 30px;
+}
+
+a{
+    width: 50vw;
+    margin: auto;
+    text-decoration: none;
+    color: orangered;
+    display: block;
+}
+
+#intro{
+    font-size: 1.6em;
+    font-weight: bold;
+}
+
+img{
+    width: 80vw;
+    display: block;
+    margin: auto;
+    margin-top: 10vh;
+    margin-bottom: 10vh;
+}
+
+header{
+    position: fixed;
+    top: 0;
+    left:0;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    color: white;
+    z-index: 999;
+    width: 100vw;
+    height: 10vh;
+}
+
+#print-nav, #web-nav{
+    right: 5vw;
+    top: 5vh;
+    font-family: monospace;
+    font-size: 2em;
+    font-weight: bold;
+    padding: 20px;
+}
+
+#print-nav:hover, #web-nav:hover{
+    color: red;
+    cursor: pointer;
+}
+
+
+#print-btn:hover{
+    cursor: pointer;
+}

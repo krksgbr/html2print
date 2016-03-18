@@ -1,0 +1,49 @@
+
+
+/* the geometry of the paper */
+@paper-width: 210mm;
+@paper-height: 297mm;
+
+
+/* the size of the crop marks*/
+@crop-size: 0mm;
+
+/* the size of bleed */
+@bleed: 0mm;
+
+// FIXME: make a case for single page layouts
+@margin-inside: 20mm;
+@margin-outside: 10mm;
+@margin-top: 10mm;
+@margin-bottom: 15mm;
+
+// Header & footer variables
+@header-height: 0mm;
+@header-text: "";
+@footer-height: 0mm;
+@footer-text: counter(page-counter);
+
+//@outside-bar-width: 10mm;
+//@inside-bar-width: 10mm;
+
+
+/* EXTRA SPACE AROUND THE PAGE: BLEED + CROP */
+// TODO: find a more appropriate name
+
+@crop: @crop-size + @bleed;
+
+/* GEOMETRY OF THE PAGE */
+@page-width: @paper-width - (@crop*2) - @margin-outside - @margin-inside;
+@page-height: @paper-height - (@crop*2) - @margin-top  - @margin-bottom;
+
+@body-height: @page-height - @header-height - @footer-height;
+@body-width: @page-width;
+
+//@outside-bar-height: @body-height;
+//@inside-bar-height: @body-height;
+
+
+
+/* SIZE OF SPREAD */
+@spread: @page-width * 2;
+

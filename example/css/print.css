@@ -1,0 +1,26 @@
+
+
+body{
+    font-family: sans-serif;
+}
+
+h1{
+    font-size: 50pt;
+    line-height: 40pt;
+}
+
+h2{
+    font-size: 30pt;
+}
+
+p{
+
+    font-size: 14pt;
+    font-weight: 900;
+}
+
+.quote{
+    font-style: italic;
+    font-weight: 100;
+}
+

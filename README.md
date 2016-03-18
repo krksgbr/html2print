@@ -1,146 +1,114 @@
-HTML 2 print
-============
-
-This little tool is a boilerplate, a minimal example to start a print project
-using HTML, less/CSS and Javascript/Jquery to design it.
 
 
-
-### Why use html to make printed matters?
-
-The most exciting reason to use HTML/CSS is the fact that you can go back
-and forth between code and visual manipulation thanks to the element inspector
-of browsers. With Javascript on top of it, you can access every object in the
-DOM and its properties or do programmatic manipulations. This back-and-forth
-between hand and code manipulations is new to print production.
-
-The second strong reason why we set this up is that because the design is made
-with code/text, it means we can use collaborative text editors such as
-Etherpad to design with several people at the same time.
+# html2print
+#### Fork of [osp.tools.html2print](https://github.com/osp/osp.tools.html2print).
 
 
+The purpose of this fork is to provide a straightforward way of creating web/print hybrid publications,
+and to make it easy to integrate with existing web projects.
 
-### Why use this instead of libraries such as the PHP library tcpdf which transforms html to a PDF for print?
+## **Usage**:
 
-Because CSS specifications for print are all settled, we are just waiting for
-browsers vendors to implement them *well*. Meanwhile, it's already
-possible to send to an offset printer a file generated from a webpage. So why
-use a third party engine if you want to print HTML?
+1.  clone the repository and put it somewhere in your project
+2.  link **dist/js/html2print.js** to the html file that you want to turn into print. the script depends on jquery,
+    so make sure to have it linked before html2print.
 
+3.  copy the **h2p_config.json** to the root of your project directory and change its settings to your requirements.
+    page settings, print-specific stylesheets and scripts are defined here.
+    the script files that are defined in this configuration will only execute in the context of the print document.
+    if your print-specific script defined in the config file is also dependent on jquery, then jquery should also be
+    listed in the config file.
 
+    **for example:**
+    ```
+    {
+        "pages": {
+            "count": 100,                          <---     there is no way of knowing how many pages will be needed beforehand.
+            "paper-width":      "210mm",                    empty pages will be trimmed at the end of the process.
+            "paper-height":     "297mm",
+            "crop-size":        "5mm",
+            "bleed":            "3mm",
+            "margin-inside":    "50mm",
+            "margin-outside":   "8mm",
+            "margin-bottom":    "25mm",
+            "margin-top":       "10mm",
+            "header-height":    "10mm",
+            "footer-height":    "10mm",
+            "header-text":      "''",
+            "footer-text":      "''",
+            "mirror":           "true"           
+        },
 
-Features
---------
-- Crop marks made with CSS gradients
-- Pagination in pure CSS
-- Mixing flowable content and absolute positioned content
-- Image fitting in frame
-- View as spread, and possibly as flatplan, and possibly building imposition
-  plans
-- Preflight packages is built-in: use the "Save Complete Webpage" function of
-  your browser
+        "styles": {
+            "print":        "css/print.css",    
+            "ui-override":  "css/h2p-ui.css"    <--- override default ui style
+        },
 
+        "scripts": [
+                "../lib/jquery/dist/jquery.min.js",
+                "js/print.js"
+        ],
 
-
-
-
-
-* * *
-
-First launch
-------------
-
-### Local micro-server
-
-You can't use less.js on a local file (URL starting with "file:///").
-To bypass this limitation, you can run a simple webserver with python.
-To do so, open the file `start` and go to <http://localhost:8000/> with a compatible web browser (see in section `Print` of the README).
-
-
-### Setup
-
-Example is based on an A5 format. 
-Edit:
-    - `/content.html`: To put your own HTML content;
-    - `/setup/setup.js`: To change the number of pages and the content file (if different from `content.html`);
-    - `/setup/setup.less`: To change the format, margins, header or footer content;
-    - `/setup/styles.less`: To add your own styles.
-
-
-### Print
-
-To make a PDF, print the page within the browser, and choose «Print to file».
-Important: choose the right page format (only Chromium's print preview can take the format specified by the CSS).
-In order to know your paper format (with the crop marks), inspect one ".paper" element with you web inspector, and look at its dimensions in mm. Be sure to remove all margins when creating the custom format!
-
-Tested browsers:
-- Arora 0.11.0
-- [Midori](http://midori-browser.org/)
-- Epiphany 3.16 (3.6.1 doesn't work)
-- Safari > 7.0
-- Chromium from versions 29 to 33
-- With polyfill (see in `examples` folder):
-  - Chromium 43
-  - Firefox 39
+        "route": "#print"    <--- this will define what route will be created for the print version. this is also shareable.
+    }
+    ```
 
 
+4.  mark html elements that should be included in the print version with the **'h2p-content'** class.
+    if within these there is content that should be excluded, mark it with the **'h2p-exclude'** class.
+
+    **for example:**
+    ```
+    <div id="#my-content" class="h2p-include">
+
+        <div>Amazing Stories</div>
+
+        <div id="#not-for-print" class="h2p-exclude">
+        </div>
+
+    </div>
+
+    ```
 
 
+5.  invoke the script by calling `H2P.init()`. it will then process the source document into a print version applying the stylesheets
+    and scripts that were specified in the configuration file.
 
-Dependencies
-------------
+6.  there is a possibility to specify code to be run as soon as the layout process has finished and the pages are ready.
+    this is handy when there is a requirement to have access to the pages, for example for putting page-numbers or other content
+    to locations that the default html2print style setup doesn't allow for.
+    this is accomplished by running `H2P.doAfterLayout(function(){ stuff(); })`; in a script defined in the config file.
+    **for example:**
 
-### Less
-
-> «Less is a CSS pre-processor, meaning that it extends the CSS language, adding
-features that allow variables, mixins, functions and many other techniques
-that allow you to make CSS that is more maintainable, themable and
-extendable.»
-> <footer>— <http://lesscss.org/></footer>
-
-We use Less to harness the power of variables to easily change page dimensions, crop marks & sizes generally.
-It is also generally a good idea to use a CSS preprocessor for your authoring experience. We use Less, but any of the SASS SCSS would work too.
-
-
-
-### Javascript/Jquery
-
-We use them for the interface actions like:
-- zoom
-- jump to a page
-- view as spread
-- toggle hi- and lo-res images
+    ```
+    H2P.doAfterLayout(function(){
+        $('.page').each(function(index){
+            var customPageNumber = $("<div>").text(index+1).addClass("custom-page-number");
+            $(this).find( ".body" ).append(customPageNumber);
+        });
+    });
+    ```
 
 
-
-For Chrome only (from version 29 to 33)
----------------------------------------
-
-### Experimental Webkit features
-
-We use CSS regions to make text flow into different divs (just like a print
-layout software). As it is not fully implemented yet, you need to use a
-webkit-based browser and activate the «experimental web platform features».
-To do so, you can visit the URL:
-
-    chrome://flags/#enable-experimental-web-platform-features
-
-And search in the long list for «experimental web platform features» to enable.
-(or the equivalent in the language of your browser)
+    To learn more, have a look at the example folder.
 
 
+## Browser support
 
-Resources
----------
-- CSS Regions polyfill by François Rémy (more recent than Adobe's one): <https://github.com/FremyCompany/css-regions-polyfill>
+tested in Firefox 44.0.2
+and Chrome 49.0.2623.87
+on Mac OSX 10.11.3
+
+in Safari it's currently broken.
+`
 
 
-<!--
+## Attributions
 
-Still need to document
-----------------------
+#### [the original html2print by Open Source Publishing](https://github.com/osp/osp.tools.html2print)
 
-- the running title
-- pagination styling (and offset?)
+#### [less.js]( http://lesscss.org/)
+[license](https://github.com/less/less.js/blob/master/LICENSE)
 
--->
+#### [CSS Regions Polyfill](https://github.com/FremyCompany/css-regions-polyfill)   
+[license](https://github.com/FremyCompany/css-regions-polyfill/blob/master/LICENSE.md)

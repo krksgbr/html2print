@@ -1,0 +1,82 @@
+
+.header,
+.content-body,
+.footer {
+    box-sizing: border-box;
+}
+
+
+/* __________________________________ HEADER __________________________________ */
+.header {
+    height: @header-height;
+    text-align: left;
+
+    &:after {
+        content: @header-text;
+    }
+}
+
+/* __________________________________ MAIN SECTION __________________________________ */
+
+#content-source {
+    -webkit-flow-into: contentflow;
+    flow-into: contentflow;
+}
+
+.content-target {
+    -webkit-flow-from: contentflow;
+    flow-from: contentflow;
+}
+
+
+/* __________________________________ FOOTER __________________________________ */
+.footer {
+    height: @footer-height;
+    text-align: center;
+
+    &:after {
+        content: @footer-text;
+    }
+}
+
+/* mirrored pages */
+#pages.mirrored{
+    .paper {
+        &:nth-child(even) .header {
+            text-align: right;
+        }
+
+        &:nth-child(even) .page {
+            padding-left: @margin-outside;
+            padding-right: @margin-inside;
+        }
+    }
+}
+
+
+img {
+    max-width: 100%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    /* Avoids headings to be cut or to be orphans.
+     * But it doesn't seem to work
+     * if the element after has a page-break-inside avoid. It tries its best! */
+    -webkit-region-break-inside: avoid;
+    -webkit-region-break-after: avoid;
+}
+
+/* AN EXAMPLE TO AVOID PAGE BREAK INSIDE,
+ * HERE NO PARAGRAPH WILL BE CUT,
+ * BUT YOU MIGHT WANT TO DEACTIVATE THIS */
+p {
+    /*-webkit-region-break-inside: avoid;*/
+}
+
+
+
