@@ -69,12 +69,12 @@ and to make it easy to integrate with existing web projects.
     </div>
 
     ```
+5.  to force a page break after an element, mark it with the **'h2p-break-after'** class.
 
-
-5.  invoke the script by calling `H2P.init()`. it will then process the source document into a print version applying the stylesheets
+6.  invoke the script by calling `H2P.init()`. it will then process the source document into a print version applying the stylesheets
     and scripts that were specified in the configuration file.
 
-6.  there is a possibility to specify code to be run as soon as the layout process has finished and the pages are ready.
+7.  there is a possibility to specify code to be run as soon as the layout process has finished and the pages are ready.
     this is handy when there is a requirement to have access to the pages, for example for putting page-numbers or other content
     to locations that the default html2print style setup doesn't allow for.
     this is accomplished by running `H2P.doAfterLayout(function(){ stuff(); })`; in a script defined in the config file.
@@ -88,7 +88,7 @@ and to make it easy to integrate with existing web projects.
         });
     });
     ```
-7. to remove it, call H2P.remove();
+8. to remove it, call H2P.remove();
 
 That's all.
 To learn more, have a look at the example folder.
