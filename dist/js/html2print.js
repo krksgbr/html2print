@@ -446,7 +446,9 @@ var H2P = (function () {
 
                 $('#page-selector #total-pages').text(" / " + doc.find('.paper').length);
 
+                console.log($("#print-button"));
                 $("#print-button").on('click', function() {
+                    console.log('print!!!');
                     print();
                 });
             },
