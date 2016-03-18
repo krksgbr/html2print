@@ -88,9 +88,10 @@ and to make it easy to integrate with existing web projects.
         });
     });
     ```
+7. to remove it, call H2P.remove();
 
-
-    To learn more, have a look at the example folder.
+That's all.
+To learn more, have a look at the example folder.
 
 
 ## Browser support
