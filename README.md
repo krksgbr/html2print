@@ -59,7 +59,7 @@ and to make it easy to integrate with existing web projects.
 
     **for example:**
     ```
-    <div id="#my-content" class="h2p-include">
+    <div id="#my-content" class="h2p-content">
 
         <div>Amazing Stories</div>
 
